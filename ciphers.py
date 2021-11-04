@@ -107,7 +107,7 @@ print(temp.key)
 smt = decryptTransposition(temp.ciphertext, temp.key)
 print(smt)
 
-    
+
 
         
     
