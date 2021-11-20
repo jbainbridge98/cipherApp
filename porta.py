@@ -67,8 +67,8 @@ def gopp(table, char):
         return table[1][col] if row == 0 else char
  
     
-key = input("ENTER KEY: ")
-text = input("ENTER TEXT TO ENCRYPT: ")
+key = input("Enter Key: ")
+text = input("Enter text to Encrypt: ")
  
-print("ENCRYPTED: " + encrypt(key, text))
-print("DECRYPTED WITH KEY: " + decrypt(key, encrypt(key, text)))
+print("Encrypted Message: " + encrypt(key, text))
+print("Decrypted Message: " + decrypt(key, encrypt(key, text)))
