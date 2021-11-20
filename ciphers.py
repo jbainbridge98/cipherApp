@@ -9,6 +9,8 @@ class EncryptedText:
         self.ciphertext = ciphertext
 
 def encryptTransposition(plaintext):
+    global generatedCipherText
+    global generatedKey
     plaintext = plaintext.upper()
     possibleKeyLengths = range(2, 10)
     useKeyLength = random.choice(possibleKeyLengths)
@@ -20,14 +22,12 @@ def encryptTransposition(plaintext):
             curr += useKeyLength
     
     generatedCipherText = "".join(ciphertext)
-    encryptedObject = EncryptedText(useKeyLength, "Transposition", generatedCipherText)
-    return encryptedObject
+    generatedKey = useKeyLength
 
 def decryptTransposition(ciphertext, key):
-    print("KEY IS ",key)
+    global generatedPlainText
     col = math.ceil(len(ciphertext)/key)
     col = int(col)
-    print("Col is ",col)
     row = key
     unoccupied = (row * col) - len(ciphertext)
     plaintext = [""] * col
@@ -47,7 +47,6 @@ def decryptTransposition(ciphertext, key):
             currRow += 1
  
     generatedPlainText = "".join(plaintext)
-    return generatedPlainText
 
 def encryptVigenere(plaintext):
     plaintext = plaintext.upper()
