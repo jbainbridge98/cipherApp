@@ -105,13 +105,19 @@ def encryptCaesar(text,s):
     
     for i in range(len(text)):
         char = text[i]
+
+        if (char == " "):
+            result += " "
+            continue
  
         if (char.isupper()):
             result += chr((ord(char) + s-65) % 26 + 65)
  
         else:
             result += chr((ord(char) + s - 97) % 26 + 97)
- 
+    
+    generatedCipherText = result
+    generatedKey = 3
     return result
 
 def decryptCaesar(cipher):
@@ -120,6 +126,10 @@ def decryptCaesar(cipher):
 
     for i in range(len(cipher)):
         char = cipher[i]
+
+        if (char == " "):
+            result += " "
+            continue
  
         if (char.isupper()):
             result += chr((ord(char) - 3 - 65) % 26 + 65)
@@ -280,10 +290,10 @@ def main():
                   
                 elif userCipher == 3:
                    #caesarencrypt
-                   encryptCaesar(userPlainText, 3)
+                   #encryptCaesar(userPlainText, 3)
                    output.append("caesar")
-                   output.append(generatedKey)
-                   output.append(generatedCipherText)
+                   output.append(3)
+                   output.append(encryptCaesar(userPlainText, 3))
                    
                 elif userCipher == 4:
                    #shiftencrypt
@@ -294,14 +304,16 @@ def main():
                 elif userCipher == 5:
                    #monoencrypt
                    output.append("monoalphabetic")
-                   output.append(generatedKey)
+                   ooutput.append(generatedKey)
                    output.append(generatedCipherText)
                    
                 elif userCipher == 6:
                    #portaencrypt
+                   portaKey = input("Enter Key: ")
+                   encryptPorta(portaKey, userPlainText)
                    output.append("porta")
-                   output.append(generatedKey)
-                   output.append(generatedCipherText)
+                   output.append(portaKey)
+                   output.append(encryptPorta(portaKey, userPlainText))
                   
                 elif userCipher == 7:
                    #subencrypt
