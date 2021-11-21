@@ -294,6 +294,8 @@ def main():
                    output.append("caesar")
                    output.append(3)
                    output.append(encryptCaesar(userPlainText, 3))
+                   generatedCipherText = encryptCaesar(userPlainText, 3)
+                   generatedKey = 3
                    
                 elif userCipher == 4:
                    #shiftencrypt
@@ -314,6 +316,8 @@ def main():
                    output.append("porta")
                    output.append(portaKey)
                    output.append(encryptPorta(portaKey, userPlainText))
+                   generatedCipherText = encryptPorta(portaKey, userPlainText)
+                   generatedKey = portaKey
                   
                 elif userCipher == 7:
                    #subencrypt
