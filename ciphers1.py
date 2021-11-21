@@ -304,7 +304,7 @@ def main():
                 elif userCipher == 5:
                    #monoencrypt
                    output.append("monoalphabetic")
-                   ooutput.append(generatedKey)
+                   output.append(generatedKey)
                    output.append(generatedCipherText)
                    
                 elif userCipher == 6:
