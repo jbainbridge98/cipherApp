@@ -631,7 +631,7 @@ def main():
                 decryptTransposition(userCipherText, userKey)
                 print("The plaintext generated is ",generatedPlainText)
             elif userCipher == 3:
-                decryptCaesar(userCipherText)
+                generatedPlainText = decryptCaesar(userCipherText)
                 print("The plaintext generated is ",decryptCaesar(userCipherText))
             elif userCipher == 4:
                 decryptShift(userCipherText, userKey)
@@ -640,7 +640,7 @@ def main():
                 decryptMonoalphabetic(userCipherText, userKey)
                 print("The plaintext generated is ",generatedPlainText)
             elif userCipher == 6:
-                decryptPorta(userKey, userCipherText)
+                generatedPlainText = decryptPorta(userKey, userCipherText)
                 print("The plaintext generated is ",decryptPorta(userKey, userCipherText))
             elif userCipher == 7:
                 decryptPlayfair(userCipherText, userKey)
