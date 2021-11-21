@@ -228,6 +228,8 @@ def main():
             #flag will be true if it is the second time encrypting
             flag = 0
             value = 1
+            option = ""
+            userCipher = ""
             while(value):
 
                 print("Which of the following ciphers was used to encrypt the text: ")
@@ -253,7 +255,13 @@ def main():
                     userCipher = input("Please enter the corresponding number: ")
                     userCipher = int(userCipher)
                 if flag == 0:
-                    userPlainText = input("Please enter the plaintext that you want to encrypt: ")
+                    if option != 'y' and option != 'Y':
+                        userPlainText = input("Please enter the plaintext that you want to encrypt: ")
+                    else:
+                        print("Your encrypted text for previous level is",generatedCipherText)
+                        print("Your key for previous level is",generatedKey)
+                        print("Keep note of all encrypted texts and keys as you will have to enter them in reverse order to decrypt")
+                        userPlainText = generatedCipherText
                 if userCipher == 1:
                    #vigenereencrypt
                    #if flag == false use userPlaintext
@@ -334,7 +342,7 @@ def main():
                         #else:
                             #prob wrong 
                         #    print(x + ", ")
-                        print(x + "\n")
+                        print(x,"\n")
                     #ends code
                     break
         elif userResponse == "decrypt":
@@ -364,6 +372,14 @@ def main():
                 decryptVigenere(userCipherText, userKey)
                 print("The plaintext generated is ",generatedPlainText)
             elif userCipher == 2:
+                try:
+                    userKey = int(userKey)
+                except ValueError:
+                    print("Invalid key! An integer is required.")
+                    print("Restarting...")
+                    userResponse = input("Enter 'encrypt' to encrypt a text or 'decrypt' to decrypt a text. Enter 'q' to exit the program: ")
+                    print("")
+                    continue
                 decryptTransposition(userCipherText, userKey)
                 print("The plaintext generated is ",generatedPlainText)
             elif userCipher == 3:
