@@ -226,6 +226,7 @@ def gopp(table, char):
 ## print("Decrypted Message: " + decrypt(key, encrypt(key, text)))
 
 ##PORTA END
+
 ## PLAYFAIR START
 
 def index_locator(char, cipherKeyMatrix):
@@ -368,6 +369,7 @@ def encryptPlayfair(plaintext2, before_key):
     cipher = ''.join(cipher)
     return cipher
 
+
 def decryptPlayfair(cipherText, keyword):
     if all(chr.isalpha() for chr in
            cipherText) and ' ' not in cipherText and 'J' not in cipherText and 'j' not in cipherText:
@@ -456,6 +458,68 @@ def decryptPlayfair(cipherText, keyword):
     cipher = ''.join(cipher)
     print(matrix_5x5)
     return cipher
+## PLAYFAIR END
+
+## STREAM START
+def toBinary(a):
+    l, m = [], []
+    for i in a:
+        l.append(ord(i))
+    for i in l:
+        m.append(int(bin(i)[2:]))
+    return m
+
+def repeat_key(length):
+    keyString = ""
+    for i in range(length):
+        if i < 3:
+            keyString += "0"
+        else:
+            keyString += str(random.randint(0, 1))
+    return keyString
+def repeat_key(length):
+    keyString = ""
+    for i in range(length):
+        if i < 3:
+            keyString += "0"
+        else:
+            keyString += str(random.randint(0, 1))
+    return keyString
+
+
+def encrypt_stream(plaintext):
+    result = []
+    key = []
+    binary = []
+    for i in plaintext:
+        binary.append(toBinary(i))
+    for x in range(len(binary)):
+        temp = '.'.join(str(t) for t in binary[x])
+        string = repeat_key(len(temp))
+        key.append(string)
+        #keyHolder.append(string)
+        y = int(str(temp), 2) ^ int(string, 2)
+        result.append(y)
+    binary.clear()
+    for z in result:
+        binary.append(chr(z))
+    return ''.join(binary)
+
+
+def decryptStream(cipher, key):
+    result = []
+    original = []
+    binary = []
+    cipher = list(cipher)
+    for x in range(len(cipher)):
+        original.append(toBinary(cipher[x]))
+        temp = '.'.join(str(t) for t in original[x])
+        y = int(str(temp), 2) ^ int(str(key[x]), 2)
+        result.append(y)
+
+    for z in result:
+        binary.append(chr(z))
+    return ''.join(binary)
 
 def main():
     print("Welcome to _________")
@@ -550,15 +614,16 @@ def main():
                   
                 elif userCipher == 7:
                    #playfairencrypt
-                   playFairKey = intput("Enter Key: ")
+                   playFairKey = input("Enter Key: ")
                    encryptPlayfair(userPlainText, playFairKey)
                    output.append("playfair")
                    output.append(playFairKey)
-                   output.append(generatedKey)
-                   output.append(generatedCipherText)
-                   
+                   output.append(encryptPlayfair(userPlainText, playFairKey))
+                   generatedCipherText = encryptPlayfair(userPlainText, playFairKey)
+                   generatedKey = playFairKey
                 elif userCipher == 8:
                    #streamencrypt
+                   encrypt_stream(userPlainText)
                    output.append("stream")
                    output.append(generatedKey)
                    output.append(generatedCipherText)

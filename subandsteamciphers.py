@@ -42,12 +42,12 @@ def toBinary(a):
 
 
 # hold binary values
-binary = []
+
 # hold key values
-key = []
-before_key = ""
-playfair = ""
-result = []
+keyHolder = []
+
+
+
 
 
 def repeat_key(length):
@@ -61,41 +61,50 @@ def repeat_key(length):
 
 
 def encrypt_stream(plaintext):
+    result = []
+    key = []
+    binary = []
     for i in plaintext:
         binary.append(toBinary(i))
     for x in range(len(binary)):
         temp = '.'.join(str(t) for t in binary[x])
         string = repeat_key(len(temp))
         key.append(string)
+        #keyHolder.append(string)
         y = int(str(temp), 2) ^ int(string, 2)
         result.append(y)
     binary.clear()
     for z in result:
         binary.append(chr(z))
-    return binary
-
-
-original = []
+    return ''.join(binary)
 
 
 def decrypt_stream(cipher, key):
-    result.clear()
+    result = []
+    original = []
+    binary = []
+    cipher = list(cipher)
     for x in range(len(cipher)):
         original.append(toBinary(cipher[x]))
         temp = '.'.join(str(t) for t in original[x])
         y = int(str(temp), 2) ^ int(str(key[x]), 2)
         result.append(y)
-    binary.clear()
+
     for z in result:
         binary.append(chr(z))
-    return binary
+    return ''.join(binary)
 
 
-test = encrypt_stream("boi8")
+test = encrypt_stream("boe8")
+
+#print(keyHolder)
+#print(test)
+#print(decrypt_stream(test, keyHolder))
 
 
-# print(test)
-# print(decrypt_stream(test, key))
+
+
+
 
 def index_locator(char, cipherKeyMatrix):
     indexOfChar = []
