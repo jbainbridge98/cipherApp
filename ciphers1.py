@@ -139,6 +139,93 @@ def decryptCaesar(cipher):
  
     return result
     
+def shiftEncryption(plaintext):
+    global generatedCipherText
+    global generatedKey
+    keyList = [i for i in range(1, 26)]
+    key = random.choice(keyList)
+    ciphertext = ""
+    plaintext = plaintext.lower()
+
+    for a in plaintext:
+        if a.isupper():
+            if(a == " "):
+                ciphertext += " "
+            else:
+                oldIndex = ord(a) - ord("A")
+                index = (oldIndex + key) % 26
+                newUnicode = index + ord("A")
+                finalChar = chr(newUnicode)
+                ciphertext = ciphertext + finalChar
+        else:
+            if(a == " "):
+                ciphertext += " "
+            else:
+                oldIndex = ord(a) - ord("a")
+                index = (oldIndex + key) % 26
+                newUnicode = index + ord("a")
+                finalChar = chr(newUnicode)
+                ciphertext = ciphertext + finalChar
+    
+    generatedCipherText = ciphertext
+    generatedKey = key
+
+
+def shiftDecryption(ciphertext, key):
+    global generatedPlainText
+    plaintext = ""
+    key = int(key)
+    ciphertext = ciphertext.lower()
+
+    for a in ciphertext:
+        if a.isupper():
+            oldIndex = ord(a) - ord("A")
+            index = (oldIndex - key) % 26
+            newUnicode = index + ord("A")
+            finalChar = chr(newUnicode)
+            plaintext = plaintext + finalChar
+        else:
+            oldIndex = ord(a) - ord("a")
+            index = (oldIndex - key) % 26
+            newUnicode = index + ord("a")
+            finalChar = chr(newUnicode)
+            plaintext = plaintext + finalChar
+            
+    generatedPlainText = plaintext
+
+def monoencrypt(plaintext):
+    global generatedCipherText
+    global generatedKey
+    plaintext = plaintext.lower()
+    key = ""
+    alphabet = "abcdefghijklmnopqrstuvwxyz "
+
+    for letter in plaintext:
+        if letter in alphabet and letter not in key and letter != " ":
+            key += letter
+
+    for letter in key:
+        if letter in alphabet and letter not in key and letter != " ":
+            key += letter
+
+    for letter in alphabet:
+        if letter not in key:
+            key += letter
+
+    #key += " "
+
+    indv = [alphabet.index(letter) for letter in plaintext]
+    generatedCipherText = "".join(key[indk] for indk in indv)
+    generatedKey = key
+
+def monodecrypt(ciphertext, key):
+    global generatedPlainText
+    ciphertext = ciphertext.lower()
+    key = key.lower()
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+            
+    indv = [key.index(letter) for letter in ciphertext]
+    generatedPlainText = ''.join(alphabet[indk] for indk in indv)
 
     ## cipher = input("Enter the text you wish to decrypt:\n")
     ## generatedPlainText = decryptCaesar(cipher)
@@ -491,8 +578,8 @@ def repeat_key(length):
 
 
 def encrypt_stream(plaintext):
-    global generatedKey
     global generatedCipherText
+    global generatedKey
     result = []
     key = []
     binary = []
@@ -597,12 +684,14 @@ def main():
                    
                 elif userCipher == 4:
                    #shiftencrypt
+                   shiftEncryption(userPlainText)
                    output.append("shift")
                    output.append(generatedKey)
                    output.append(generatedCipherText)
                   
                 elif userCipher == 5:
                    #monoencrypt
+                   monoencrypt(userPlainText)
                    output.append("monoalphabetic")
                    output.append(generatedKey)
                    output.append(generatedCipherText)
@@ -643,7 +732,7 @@ def main():
                     print("Invalid Input")
                 
                 #choice to encrypt again
-                option = input("Would you like to encrypt again? Y/N")
+                option = input("Would you like to encrypt again? Y/N: ")
                 #if yes is chosen, we go back to the top, nothing is input but what cipher to use, for plaintext we use previous ciphertext
                 if option == 'y' or option == 'Y':
                     flag == 1
@@ -704,10 +793,10 @@ def main():
                 generatedPlainText = decryptCaesar(userCipherText)
                 print("The plaintext generated is ",decryptCaesar(userCipherText))
             elif userCipher == 4:
-                decryptShift(userCipherText, userKey)
+                shiftDecryption(userCipherText, userKey)
                 print("The plaintext generated is ",generatedPlainText)
             elif userCipher == 5:
-                decryptMonoalphabetic(userCipherText, userKey)
+                monodecrypt(userCipherText, userKey)
                 print("The plaintext generated is ",generatedPlainText)
             elif userCipher == 6:
                 generatedPlainText = decryptPorta(userKey, userCipherText)
