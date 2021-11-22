@@ -227,6 +227,7 @@ def gopp(table, char):
 
 ##PORTA END
 
+
 ## PLAYFAIR START
 
 def index_locator(char, cipherKeyMatrix):
@@ -460,6 +461,8 @@ def decryptPlayfair(cipherText, keyword):
     return cipher
 ## PLAYFAIR END
 
+
+
 ## STREAM START
 def toBinary(a):
     l, m = [], []
@@ -488,6 +491,8 @@ def repeat_key(length):
 
 
 def encrypt_stream(plaintext):
+    global generatedKey
+    global generatedCipherText
     result = []
     key = []
     binary = []
@@ -497,13 +502,13 @@ def encrypt_stream(plaintext):
         temp = '.'.join(str(t) for t in binary[x])
         string = repeat_key(len(temp))
         key.append(string)
-        #keyHolder.append(string)
         y = int(str(temp), 2) ^ int(string, 2)
         result.append(y)
     binary.clear()
     for z in result:
         binary.append(chr(z))
-    return ''.join(binary)
+    generatedCipherText = ''.join(binary)
+    generatedKey = key
 
 
 def decryptStream(cipher, key):
@@ -520,7 +525,7 @@ def decryptStream(cipher, key):
     for z in result:
         binary.append(chr(z))
     return ''.join(binary)
-
+## STREAM END
 def main():
     print("Welcome to _________")
     userResponse = input("Enter 'encrypt' to encrypt a text or 'decrypt' to decrypt a text. Enter 'q' to exit the program: ")

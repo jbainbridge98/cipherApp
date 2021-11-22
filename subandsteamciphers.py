@@ -95,7 +95,7 @@ def decrypt_stream(cipher, key):
     return ''.join(binary)
 
 
-test = encrypt_stream("boe8")
+#test = encrypt_stream("b oe 8")
 
 #print(keyHolder)
 #print(test)
