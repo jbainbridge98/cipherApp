@@ -457,7 +457,7 @@ def decryptPlayfair(cipherText, keyword):
         i += 2
 
     cipher = ''.join(cipher)
-    print(matrix_5x5)
+    # print(matrix_5x5)
     return cipher
 ## PLAYFAIR END
 
@@ -480,15 +480,6 @@ def repeat_key(length):
         else:
             keyString += str(random.randint(0, 1))
     return keyString
-def repeat_key(length):
-    keyString = ""
-    for i in range(length):
-        if i < 3:
-            keyString += "0"
-        else:
-            keyString += str(random.randint(0, 1))
-    return keyString
-
 
 def encrypt_stream(plaintext):
     global generatedKey
@@ -508,8 +499,7 @@ def encrypt_stream(plaintext):
     for z in result:
         binary.append(chr(z))
     generatedCipherText = ''.join(binary)
-    generatedKey = key
-
+    generatedKey = ','.join(key)
 
 def decryptStream(cipher, key):
     result = []
